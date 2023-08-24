@@ -97,5 +97,5 @@ void add(stack_t **stack, unsigned int line_number)
 
 void nop(stack_t __attribute__((unused))**stack, unsigned int __attribute__((unused))line_number)
 {
-	printf("there is nothin that I'm doing!\n");
+
 }
