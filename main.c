@@ -17,11 +17,12 @@
 
 int main(int argc, char *argv[])
 {
-	unsigned int i, num, line = 0;
+	unsigned int i, num, cmp, line = 0;
 	FILE *fd;
 	size_t n = 0;
 	ssize_t res;
 	char *token, *array[2], *buffer = NULL;
+	stack_t *tmp, *stack = NULL;
 
 	if (argc != 2)
 	{
@@ -52,9 +53,20 @@ int main(int argc, char *argv[])
 			token = strtok(NULL, " ,.!");
 		}
 		num = convert(array, line);
-		getfunc(array[0], num, line);
+		if ((cmp = strcmp(token, "push")) == 0)
+		{
+			push(&stack, num);
+		}
+		else
+		(getfunc(*array))(&stack, line);
 	}
 	fclose(fd);
 	free(buffer);
+	while (stack != NULL)
+	{
+		tmp = stack;
+		stack = stack->next;
+		free(tmp);
+	}
 	return (0);
 }

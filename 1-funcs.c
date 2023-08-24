@@ -9,23 +9,15 @@
  * Return: nothing
  */
 
-void pint(stack_t *stack, unsigned int line_number)
+void pint(stack_t **stack, unsigned int line_number)
 {
-	stack_t *tmp;
-
-	if (stack == NULL)
+	if (stack == NULL || *stack == NULL)
 	{
 		fprintf(stderr, "L<%d>: can't pint, stack empty\n", line_number);
-		return;
+		exit(EXIT_FAILURE);
 	}
 
-	tmp = stack;
-	while (tmp->next != NULL)
-	{
-		tmp = tmp->next;
-	}
-
-	printf("%d\n", tmp->n);
+	printf("%d\n", (*stack)->n);
 }
 /**
  * swap - swaps the top two elements
@@ -35,10 +27,9 @@ void pint(stack_t *stack, unsigned int line_number)
  * Return: nothing
  */
 
-void swap(stack_t *stack, unsigned int line_number)
+void swap(stack_t **stack, unsigned int line_number)
 {
-	int buff, i = 0;
-	stack_t *tmp, *top;
+	stack_t *tmp;
 
 	if (stack == NULL)
 	{
@@ -46,22 +37,17 @@ void swap(stack_t *stack, unsigned int line_number)
 		return;
 	}
 
-	tmp = stack;
-	while (tmp->next != NULL)
+	tmp = *stack;
+	if (tmp->next != NULL)
 	{
-		tmp = tmp->next;
-		i++;
-	}
-	if ((i + 1) < 2)
-	{
-		fprintf(stderr, "L<%d>: can't add, stack too short", line_number);
+		(*stack)->next = tmp->next;
+		tmp->prev = *stack;
 	}
 	else
 	{
-		top = tmp->next;
-		buff = tmp->n;
-		tmp->n = top->n;
-		top->n = buff;
+		tmp->prev = NULL;
+		tmp->next = *stack;
+		*stack = tmp;
 	}
 }
 
@@ -73,18 +59,18 @@ void swap(stack_t *stack, unsigned int line_number)
  * Return: nothing
  */
 
-void add(stack_t *stack, unsigned int line_number)
+void add(stack_t **stack, unsigned int line_number)
 {
 	int i = 0;
 	stack_t *tmp, *top;
 
-	if (stack == NULL)
+	if (*stack == NULL)
 	{
 		fprintf(stderr, "L<%d>: can't add, stack too short", line_number);
 		return;
 	}
 
-	tmp = stack;
+	tmp = *stack;
 	while (tmp->next != NULL)
 	{
 		tmp = tmp->next;
@@ -109,7 +95,7 @@ void add(stack_t *stack, unsigned int line_number)
  * Return: nothing
  */
 
-void nop(void)
+void nop(stack_t __attribute__((unused))**stack, unsigned int __attribute__((unused))line_number)
 {
 	printf("there is nothin that I'm doing!\n");
 }

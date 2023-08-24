@@ -12,16 +12,9 @@
 
 void push(stack_t **stack, unsigned int value)
 {
-	int i = 0;
-	stack_t *top, *tmp;
+	stack_t *top;
 
-	if (stack == NULL)
-	{
-		fprintf(stderr, "no stack found");
-		exit(EXIT_FAILURE);
-	}
-
-	top = (stack_t *)malloc(sizeof(stack_t));
+	top = malloc(sizeof(stack_t));
 	if (top == NULL)
 	{
 		fprintf(stderr, "Error: malloc failed");
@@ -30,24 +23,18 @@ void push(stack_t **stack, unsigned int value)
 
 	top->prev = NULL;
 	top->next = NULL;
+	top->n = value;
 	if (*stack == NULL)
 	{
 		*stack = top;
-		top->n = value;
-		tmp = top;
+		top->prev = NULL;
+		top->next = NULL;
 	}
 	else
 	{
-		tmp = *stack;
-		while (tmp->next != NULL)
-		{
-			tmp = tmp->next;
-			i++;
-		}
-		tmp->next = top;
-		top->prev = tmp;
-		top->n = value;
-		tmp->next->prev = top;
+		top->next = *stack;
+		(*stack)->prev = top;
+		*stack = top;
 	}
 }
 
@@ -58,29 +45,23 @@ void push(stack_t **stack, unsigned int value)
  *
  * Return: void
  */
-void pall(stack_t *stack, unsigned int __attribute__((unused))line_number)
+void pall(stack_t **stack, unsigned int __attribute__((unused))line_number)
 {
-	int i = 1;
 	stack_t *tmp;
 
-	tmp = stack;
-	if (stack == NULL)
+	tmp = *stack;
+	if (*stack == NULL)
 	{
 		printf("empity\n");
 		return;
 	}
-
-	while (tmp->next != NULL)
-	{
-		tmp = tmp->next;
-		i++;
-	}
 	while (tmp != NULL)
 	{
 		printf("%d\n", tmp->n);
-		tmp = tmp->prev;
+		tmp = tmp->next;
 	}
 }
+
 /**
  * pop - removes the top element
  * @stack: points to a stack
@@ -88,25 +69,20 @@ void pall(stack_t *stack, unsigned int __attribute__((unused))line_number)
  *
  * Return: void
  */
-void pop(stack_t *stack, unsigned int line_number)
+void pop(stack_t **stack, unsigned int line_number)
 {
-	int i = 1;
-	stack_t *tmp, *top;
+	stack_t *tmp;
 
-	tmp = stack;
+	tmp = *stack;
 	if (stack == NULL)
 	{
 		fprintf(stderr, "L<%d>: can't pop an empty stack\n", line_number);
 		return;
 	}
-
-	while (tmp->next != NULL)
+	else
 	{
-		tmp = tmp->next;
-		i++;
+		*stack = (*stack)->next;
+		(*stack)->prev = NULL;
+		free(tmp);
 	}
-
-	top = tmp->next;
-	free(top);
-	tmp->next = NULL;
 }

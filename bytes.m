@@ -1,2 +1,2 @@
-nop 1
-pop 1
+push 1
+pall
