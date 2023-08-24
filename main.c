@@ -17,7 +17,7 @@
 
 int main(int argc, char *argv[])
 {
-	unsigned int num, i, j;
+	unsigned int num, i, j, line = 0;
 	FILE *fd;
 	size_t n = 0;
 	ssize_t res;
@@ -47,7 +47,6 @@ int main(int argc, char *argv[])
 	token = strtok(buffer, " ,.!");
 	for (i = 0; token != NULL && i < 2; i++)
 	{
-		printf("%s\n", token);
 		array[i] = token;
 		token = strtok(NULL, " ,.!");
 	}
@@ -63,7 +62,8 @@ int main(int argc, char *argv[])
 			break;
 		}
 	}
-	getfunc(array[0], num);
+	printf("checkpoint 1\n");
+	getfunc(array[0], num, ++line);
 	}
 	printf("checkpoint 4:\n");
 	fclose(fd);

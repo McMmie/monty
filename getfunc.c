@@ -10,17 +10,24 @@
  * Return: void
  */
 #define LIMIT 10
-void getfunc(char *instruction, unsigned int value)
+void getfunc(char *instruction, unsigned int value, unsigned int line_number)
 {
 	int cmp, num, i;
+	void (*fptr[LIMIT])(stack_t *, unsigned int) = {
+			&pop,
+			&pall,
+			&pint,
+			&swap,
+			&add
+		};
 	char *opcode[LIMIT] = {
 		"pop",
 		"pall",
 		"pint",
 		"swap",
-		"add",
-		"nop"
+		"add"
 	};
+
 	instruction_t *func = (instruction_t *)malloc(sizeof(instruction_t));
 	stack_t *stack = (stack_t *)malloc(sizeof(stack_t));
 
@@ -28,7 +35,10 @@ void getfunc(char *instruction, unsigned int value)
 	if ((cmp = strcmp(instruction, "push")) == 0)
 	{
 		push(&stack, value);
-		printf("executed!\n");
+		return;
+	}
+	else if ((cmp = strcmp(instruction, "nop")) == 0)
+	{
 		return;
 	}
 	else
@@ -39,8 +49,7 @@ void getfunc(char *instruction, unsigned int value)
 			cmp = strcmp(opcode[i], func->opcode);
 			if (cmp == 0)
 			{
-				printf("printing all");
-				pall(stack);
+				fptr[i](stack, line_number);
 				return;
 			}
 		}
