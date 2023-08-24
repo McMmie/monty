@@ -37,35 +37,23 @@ int main(int argc, char *argv[])
 	}
 	while (1)
 	{
-	res = getline(&buffer, &n, fd);
-	if (res == -1)
-	{
-		perror(argv[1]);
-		free(buffer);
-		exit(EXIT_FAILURE);
-	}
-	token = strtok(buffer, " ,.!");
-	for (i = 0; token != NULL && i < 2; i++)
-	{
-		array[i] = token;
-		token = strtok(NULL, " ,.!");
-	}
-	for (j = 0; array[1][j] != '\0'; j++)
-	{
-		if (!isdigit(array[1][j]))
+		line++;
+		res = getline(&buffer, &n, fd);
+		if (res == -1)
 		{
+			perror(argv[1]);
+			free(buffer);
 			exit(EXIT_FAILURE);
 		}
-		else
+		token = strtok(buffer, " ,.!");
+		for (i = 0; token != NULL && i < 2; i++)
 		{
-			num = atoi(array[1]);
-			break;
+			array[i] = token;
+			token = strtok(NULL, " ,.!");
 		}
+		convert(array, line)
+		getfunc(array[0], num, line);
 	}
-	printf("checkpoint 1\n");
-	getfunc(array[0], num, ++line);
-	}
-	printf("checkpoint 4:\n");
 	fclose(fd);
 	free(buffer);
 	return (0);

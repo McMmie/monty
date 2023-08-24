@@ -4,15 +4,16 @@
 #include <stdio.h>
 /**
  * getfunc - gets functions
- * @instruction: the opcode
+ * @instruct: the opcode
  * @value: value to be pushed
+ * @line_number: line being parsed
  *
  * Return: void
  */
-#define LIMIT 10
-void getfunc(char *instruction, unsigned int value, unsigned int line_number)
+void getfunc(char *instruct, unsigned int value, unsigned int line_number)
 {
-	int cmp, num, i;
+	int cmp1 = strcmp(instruct, "push"), cmp2 = strcmp(instruct, "nop"), num, i;
+
 	void (*fptr[LIMIT])(stack_t *, unsigned int) = {
 			&pop,
 			&pall,
@@ -27,17 +28,14 @@ void getfunc(char *instruction, unsigned int value, unsigned int line_number)
 		"swap",
 		"add"
 	};
-
-	instruction_t *func = (instruction_t *)malloc(sizeof(instruction_t));
 	stack_t *stack = (stack_t *)malloc(sizeof(stack_t));
 
-	func->opcode = instruction;
-	if ((cmp = strcmp(instruction, "push")) == 0)
+	if (cmp1 == 0)
 	{
 		push(&stack, value);
 		return;
 	}
-	else if ((cmp = strcmp(instruction, "nop")) == 0)
+	else if (cmp2 == 0)
 	{
 		return;
 	}
@@ -46,7 +44,7 @@ void getfunc(char *instruction, unsigned int value, unsigned int line_number)
 		num = sizeof(opcode) / sizeof(char *);
 		for (i = 0; i < num; i++)
 		{
-			cmp = strcmp(opcode[i], func->opcode);
+			cmp = strcmp(opcode[i], instruct);
 			if (cmp == 0)
 			{
 				fptr[i](stack, line_number);

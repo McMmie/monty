@@ -12,6 +12,7 @@
 void pint(stack_t *stack, unsigned int line_number)
 {
 	stack_t *tmp;
+
 	if (stack == NULL)
 	{
 		fprintf(stderr, "L<%d>: can't pint, stack empty\n", line_number);
@@ -38,6 +39,7 @@ void swap(stack_t *stack, unsigned int line_number)
 {
 	int buff, i = 0;
 	stack_t *tmp, *top;
+
 	if (stack == NULL)
 	{
 		fprintf(stderr, "L<%d>: can't add, stack too short", line_number);
@@ -75,6 +77,7 @@ void add(stack_t *stack, unsigned int line_number)
 {
 	int i = 0;
 	stack_t *tmp, *top;
+
 	if (stack == NULL)
 	{
 		fprintf(stderr, "L<%d>: can't add, stack too short", line_number);
@@ -102,12 +105,11 @@ void add(stack_t *stack, unsigned int line_number)
 }
 /**
  * nop - does nothing
- * @stack: unused
+ *
  * Return: nothing
  */
 
-void nop()
+void nop(void)
 {
 	printf("there is nothin that I'm doing!\n");
-	return;
 }

@@ -1,6 +1,7 @@
 #ifndef MAIN
 #define MAIN
 #include <stdlib.h>
+#define LIMIT 10
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -39,6 +40,6 @@ void pop(stack_t *stack, unsigned int line_number);
 void pint(stack_t *stack, unsigned int line_number);
 void swap(stack_t *stack, unsigned int line_number);
 void add(stack_t *stack, unsigned int line_number);
-void nop();
+void nop(void);
 
 #endif

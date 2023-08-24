@@ -15,7 +15,7 @@ void push(stack_t **stack, unsigned int value)
 	int i = 0;
 	stack_t *top, *tmp;
 
-	if(stack == NULL)
+	if (stack == NULL)
 	{
 		fprintf(stderr, "no stack found");
 		exit(EXIT_FAILURE);
