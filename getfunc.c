@@ -12,7 +12,7 @@
  */
 void getfunc(char *instruct, unsigned int value, unsigned int line_number)
 {
-	int cmp1 = strcmp(instruct, "push"), cmp2 = strcmp(instruct, "nop"), num, i;
+	int cmp1 = strcmp(instruct, "push"), cmp2 = strcmp(instruct, "nop"), n, cp, i;
 
 	void (*fptr[LIMIT])(stack_t *, unsigned int) = {
 			&pop,
@@ -41,10 +41,10 @@ void getfunc(char *instruct, unsigned int value, unsigned int line_number)
 	}
 	else
 	{
-		num = sizeof(opcode) / sizeof(char *);
-		for (i = 0; i < num; i++)
+		n = sizeof(opcode) / sizeof(char *);
+		for (i = 0; i < n; i++)
 		{
-			cmp = strcmp(opcode[i], instruct);
+			cp = strcmp(opcode[i], instruct);
 			if (cmp == 0)
 			{
 				fptr[i](stack, line_number);

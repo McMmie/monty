@@ -17,7 +17,7 @@
 
 int main(int argc, char *argv[])
 {
-	unsigned int num, i, j, line = 0;
+	unsigned int i, num, line = 0;
 	FILE *fd;
 	size_t n = 0;
 	ssize_t res;
@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
 			array[i] = token;
 			token = strtok(NULL, " ,.!");
 		}
-		convert(array, line)
+		num = convert(array, line);
 		getfunc(array[0], num, line);
 	}
 	fclose(fd);
