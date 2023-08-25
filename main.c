@@ -46,13 +46,15 @@ int main(int argc, char *argv[])
 			free(buffer);
 			exit(EXIT_FAILURE);
 		}
-		token = strtok(buffer, " ,.!");
-		for (i = 0; token != NULL && i < 2; i++)
+		token = strtok(buffer, " ,.;:!\n\t\r");
+		i = 0;
+		while (token != NULL)
 		{
-			array[i] = token;
-			token = strtok(NULL, " ,.!");
+			array[i++] = token;
+			token = strtok(NULL, "\n\t\r;: ,.!");
 		}
 		num = convert(array, line);
+		printf("checkpoint 1");
 		if ((cmp = strcmp(token, "push")) == 0)
 		{
 			push(&stack, num);

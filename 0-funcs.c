@@ -21,8 +21,6 @@ void push(stack_t **stack, unsigned int value)
 		exit(EXIT_FAILURE);
 	}
 
-	top->prev = NULL;
-	top->next = NULL;
 	top->n = value;
 	if (*stack == NULL)
 	{
